@@ -9,7 +9,7 @@ public int	exploreTrade(int [] quesHistory){
 		//System.out.println("explore trade");
 		int estimatedPercentage=0;
 		
-		
+		//algorithm
 		
 		return estimatedPercentage;
 		
