@@ -34,7 +34,7 @@ public int commitTrade(int revisedPercentage){
 
 
 	@Override
-	public int exploreTrade(int[] quesHistory) {
+	public int exploreTrade(int[] quesHistory,int noOfDays,int defaultValue) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

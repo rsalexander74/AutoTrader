@@ -5,15 +5,24 @@ public class TradingManager implements TradingManagerIntfc {
 	int estimatedPoints=0;
 	//trading operations
 	//calculation according to the data available like question history
-public int	exploreTrade(int [] quesHistory){
+public int	exploreTrade(int [] quesHistory,int noOfDays,int defaultValue){
 		//System.out.println("explore trade");
 		int estimatedPercentage=0;
-		
+				int temp=0;
+				int tempHistory=0;
+		temp=quesHistory[0];
 		//algorithm
-		
+		tempHistory=(100-temp)/(noOfDays);
+		if(defaultValue==0){
+		estimatedPercentage=temp-tempHistory;
 		return estimatedPercentage;
+		}
+		else
+		{
+			estimatedPercentage=temp+tempHistory;
+			return estimatedPercentage;
 		
-		
+		}
 }
 	// calculation according points available and other criteria 
 //yet to be added estimated points retrival from estimated percentage

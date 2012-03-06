@@ -1,5 +1,6 @@
 package org.daggre.autotrader.reasoning;
-
+import java.util.*;
+import java.text.*;
 public class Validator {
 Validator(){}
 // all validations required to proceed to trading
@@ -48,7 +49,28 @@ public boolean sufficientPercentage(int maxPercentage,int estimatedPercentage,in
 	else
 		return true;
 }
+public int noOfDays(String input){
+	long time1=0;
+    long time2=0;
+    long temp=0;
+    int noOfDays=0;
+   SimpleDateFormat ft = new SimpleDateFormat ("dd MMM yyyy"); 
+   Date t1=new Date();
+   time2=t1.getTime();
+   Date t = null; 
 
+   try { 
+       t = ft.parse(input);  
+   } catch (ParseException e) { 
+       System.out.println("Unparseable using "); 
+   }
+   time1=t.getTime();
+   temp=time1-time2;
+   temp=temp/86400000;
+   noOfDays=(int)temp;
+   return noOfDays;
+		
+}
 
 
 
