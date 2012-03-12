@@ -2,7 +2,7 @@ package org.daggre.autotrader.reasoning;
 import java.util.*;
 import java.text.*;
 public class Validator {
-Validator(){}
+public Validator(){}
 // all validations required to proceed to trading
 public boolean	withinTradeWindow(int noOfDays,int minNoDays){//checks whether its in the trading window
 	
@@ -54,7 +54,7 @@ public int noOfDays(String input){
     long time2=0;
     long temp=0;
     int noOfDays=0;
-   SimpleDateFormat ft = new SimpleDateFormat ("dd MMM yyyy"); 
+   SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd"); 
    Date t1=new Date();
    time2=t1.getTime();
    Date t = null; 
