@@ -3,8 +3,7 @@
  * and open the template in the editor.
  */
 package org.daggre.autotrader.autotraderv0;
-import org.daggre.autotrader.reasoning.*;
-import org.daggre.autotrader.communication.*;
+
 
 /**
  *
@@ -17,8 +16,9 @@ public class AutoTraderV0 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        TestHarness.test();
-        
+        ProcessFlow testFlow=new ProcessFlow();
+      //  testFlow.validityCheck(155, "autotraderk1", "ralexan3");
+     
        
     }
 }

@@ -25,8 +25,8 @@ public class InformationCommunicator implements InfoCommInterface{
 	static String strQuestion="/trade/history?format=json&question_id=";
 	
 	//static String strTradeSetter="/estimate/trade?idx=173&val=3";
-InformationCommunicator(){}
-public String getEstimateDate(int quesId,String username,String password){
+public InformationCommunicator(){}
+public String getSettlementDate(int quesId,String username,String password){
 	String date=null;
 	ClientConfig config = new DefaultClientConfig();			
 	Client client = Client.create(config);						
@@ -144,7 +144,7 @@ public int setTrade(int commitTrade,int quesId,String username,String password) 
 		builder = webResource.getRequestBuilder();
 		builder.cookie(sessionCookie);
 		String response3 = builder.get(String.class);
-		valueSet=(Double.parseDouble(response3)*100);
+		valueSet=(Double.parseDouble(response3)*100);//converting string into double to get the commited trade
 		}
 		
 	catch (Exception e) {
@@ -196,6 +196,105 @@ return points;
 	
 }
 
+
+public int[] quesCheck(int [] quesID,String username,String password){
+	double value;
+	int[] quesId=null;
+	quesId=new int[50];
+	int j=0,k=0;
+	
+	for(int i=0;i<quesID.length;i++){
+		
+		ClientConfig config = new DefaultClientConfig();			
+		Client client = Client.create(config);						
+		WebResource webResource = client.resource(getBaseURI(strBaseUrl+strLoginSvcUrl));		
+			try {
+			MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
+			queryParams.add(paramUsername, username);
+			queryParams.add(paramPassword, password);
+			ClientResponse response = webResource.queryParams(queryParams).head();
+			List<NewCookie> cookieList = response.getCookies();
+			webResource = client.resource(getBaseURI(strBaseUrl+strUserInfoSvcUrl));
+			WebResource.Builder builder = webResource.getRequestBuilder();
+			for (NewCookie c : cookieList) {
+			    builder = builder.cookie(c);
+			    sessionCookie = c;	//also save cookie for future use
+			}
+			webResource = client.resource(strBaseUrl+strQuestion+quesID[i]);
+			builder = webResource.getRequestBuilder();
+			builder.cookie(sessionCookie);
+			String response3 = builder.get(String.class);
+			JSONArray jsonArray=new JSONArray(response3);
+			
+			JSONObject json=new JSONObject();
+			
+			json=jsonArray.getJSONObject(1);
+			value=json.getDouble("settled_value");
+			
+			
+			}
+			
+			
+		catch (Exception e) {
+				quesId[j]=quesID[i];
+				j++;
+		}
+	
+	}
+	int[] quesId2=null;
+	quesId2=new int[j];
+	for(k=0;k<j;k++)
+		quesId2[k]=quesId[k];
+	return quesId2;
+	
+	
+}
+
+
+public boolean quesCheck1(int quesID,String username,String password){
+	double value;
+	boolean check=false;
+	
+		ClientConfig config = new DefaultClientConfig();			
+		Client client = Client.create(config);						
+		WebResource webResource = client.resource(getBaseURI(strBaseUrl+strLoginSvcUrl));		
+			try {
+			MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
+			queryParams.add(paramUsername, username);
+			queryParams.add(paramPassword, password);
+			ClientResponse response = webResource.queryParams(queryParams).head();
+			List<NewCookie> cookieList = response.getCookies();
+			webResource = client.resource(getBaseURI(strBaseUrl+strUserInfoSvcUrl));
+			WebResource.Builder builder = webResource.getRequestBuilder();
+			for (NewCookie c : cookieList) {
+			    builder = builder.cookie(c);
+			    sessionCookie = c;	//also save cookie for future use
+			}
+			webResource = client.resource(strBaseUrl+strQuestion+quesID);
+			builder = webResource.getRequestBuilder();
+			builder.cookie(sessionCookie);
+			String response3 = builder.get(String.class);
+			JSONArray jsonArray=new JSONArray(response3);
+			
+			JSONObject json=new JSONObject();
+			
+			json=jsonArray.getJSONObject(1);
+			value=json.getDouble("settled_value");
+			
+			
+			}
+			
+			
+		catch (Exception e) {
+				check=true;
+		}
+	
+	
+	
+	return check;
+	
+	
+}
 
 }
 

@@ -8,8 +8,9 @@ public class TradingManager1 implements TradingManagerIntfc {
 	
 
 @Override
-public int reviseTrade(int estimatedPercentage,int initialPercentage){
+public int reviseTrade(int estimatedPercentage){
 		//System.out.println("revise trade");
+	int initialPercentage=TradingController.get_initialPercentage();
 		if(estimatedPercentage>initialPercentage)
 			return estimatedPercentage-1;
 		
@@ -34,7 +35,7 @@ public int commitTrade(int revisedPercentage){
 
 
 	@Override
-	public int exploreTrade(int[] quesHistory,int noOfDays,int defaultValue) {
+	public int exploreTrade() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
