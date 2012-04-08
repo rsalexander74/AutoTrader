@@ -14,7 +14,7 @@ import javax.ws.rs.core.NewCookie;
 import Json.communication.*;
 
 public class InformationCommunicator implements InfoCommInterface{
-	static String strBaseUrl = "http://dev.daggre.org";
+	static String strBaseUrl = "http://daggre.org";
 	static String strLoginSvcUrl = "/login/external_login";
 	static String strUserInfoSvcUrl = "/login/current_user_info";
 	static String paramUsername = "username";
@@ -43,7 +43,7 @@ public String getSettlementDate(int quesId,String username,String password){
 		    builder = builder.cookie(c);
 		    sessionCookie = c;	//also save cookie for future use
 		}
-		webResource = client.resource("http://dev.daggre.org/questions/?format=json");
+		webResource = client.resource("http://daggre.org/questions/?format=json");
 		builder = webResource.getRequestBuilder();
 		builder.cookie(sessionCookie);
 		String response3 = builder.get(String.class);

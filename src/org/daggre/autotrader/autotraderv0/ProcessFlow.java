@@ -2,15 +2,15 @@ package org.daggre.autotrader.autotraderv0;
 import org.daggre.autotrader.communication.*;
 import org.daggre.autotrader.reasoning.*;
 public class ProcessFlow {
-static int[] quesId={157,155,6,32};
-static int[] defaultValue={0,0,0,1};
-static String username="autotraderk1";
+static int[] quesId={ 157,155,148,176,171};
+static int[] defaultValue={0,0,0,0,0};
+static String username="autotraderK6";
 static String password="ralexan3";
 static int policy=0;
 static int max_Percentage=3;
 static double max_points=10.0;
 static double minBalance=100;
-static int minNoDays=60;
+static int minNoDays=30;
 TradingController TradContObj=new TradingController();
 InformationCommunicator InfoObj=new InformationCommunicator();
 ProcessFlow(){
@@ -23,11 +23,12 @@ for(int i=0;i<quesId.length;i++){
         TradContObj.set_noOfDays(valid.noOfDays(date));
         TradContObj.set_ques_History(InfoObj.quesHistory(quesId[i],username,password));
         TradContObj.set_initialPercentage(InfoObj.quesHistory(quesId[i],username,password)[0]);
-    System.out.println(TradingController.get_default());
-    System.out.println(TradingController.get_initialPercentage());
-    System.out.println(TradingController.get_noOfDays());
-    System.out.println(TradingController.get_ques_History()[0]);
-    System.out.println(validityCheck(quesId[i], username, password));  
+   System.out.println("QuestionID="+TradingController.get_quesID());
+   System.out.println("default="+TradingController.get_default());
+   System.out.println("initial percentage="+TradingController.get_initialPercentage());
+   System.out.println("no of days left="+TradingController.get_noOfDays());
+    //System.out.println("default="+TradingController.get_ques_History()[0]);
+    System.out.println("valid="+validityCheck(quesId[i], username, password));  
 boolean check;
        int finalCommit;
        TradContObj.set_default(defaultValue[i]);
@@ -35,15 +36,19 @@ try{
 check=validityCheck(quesId[i], username, password);
 	if(check==true){
 		finalCommit=algorithm();
-	if(finalCommit>0 && finalCommit<100){
-	finalCommit=InfoObj.setTrade(finalCommit, quesId[i], username, password);		
-	System.out.println(username+"   "+quesId[i]+"       initial percentage"+TradingController.get_initialPercentage()+"     percentage commited="+finalCommit+"   "+TradingController.get_noOfDays());
+	if(finalCommit>0 && finalCommit<100 && finalCommit!=TradingController.get_initialPercentage()){
+	InfoObj.setTrade(finalCommit, quesId[i], username, password);		
+	System.out.println("Username="+username+"  quesNo="+quesId[i]+"       initial percentage"+TradingController.get_initialPercentage()+"     percentage commited="+finalCommit+"   No of days"+TradingController.get_noOfDays());
+	System.out.println("      ");
 	}
-	else
-		System.out.println("low commit");
+	else{
+		System.out.println("low commit or percentae change remained same");
+	    System.out.println("");
+	}
 	}
 	else{
 		System.out.println("criteria not met");
+		System.out.println("");
 		continue;
 		
 	}

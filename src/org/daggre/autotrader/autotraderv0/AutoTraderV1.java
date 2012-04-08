@@ -9,7 +9,7 @@ package org.daggre.autotrader.autotraderv0;
  *
  * @author ralexander
  */
-public class AutoTraderV0 {
+public class AutoTraderV1 {
 
     /**
      * @param args the command line arguments

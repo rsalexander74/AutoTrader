@@ -21,7 +21,7 @@ public class TradingController {
 		return initialPercentage;
 	}
     public static int get_noOfDays(){return noOfDays;}
-	public int get_quesID(){
+	public static int get_quesID(){
 		return quesID;
 	}
 
