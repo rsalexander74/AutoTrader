@@ -16,7 +16,9 @@ public class AutoTraderV1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        ProcessFlow testFlow=new ProcessFlow();
+    	  Process3 proc=new Process3();
+          proc.flow3();
+        
       //  testFlow.validityCheck(155, "autotraderk1", "ralexan3");
      
        

@@ -1,26 +1,45 @@
 package org.daggre.autotrader.reasoning;
 
-public class TradingController {
 
+public class TradingController {
+	
+    
 	static int quesID=0;
 	static double max_Points=0;
 	static int max_Percentage=0;
 	static int[] ques_History;
 	static int[] questions_AT;
+	static String[] history_dates;
 	static int default_Outcome=0;
 	static int noOfDays=0;
 	static int initialPercentage=0;
 	static int increment=0;
-
+	static int previousPercentage=0;
+	static String username="";
+	static String fileName="";
+	static String nodeName="";
+	static String password="";
+	static int policy=0;
+	static int minNoOfDays=0;
 	public TradingController(){}
 	//all getter methods
+	public static String get_NodeName(){return nodeName;}
+	public static String get_fileName(){return fileName;}
+	public static String get_Username(){return username;}
+	public static String get_Password(){return password;}
+	public static int get_prevPercentage(){return previousPercentage;}
+	public static int get_policy(){return policy;}
 	public static int get_increment(){
 		return increment;
+	}
+	public static String[] get_histDates(){
+		return history_dates;
 	}
 	public static int get_initialPercentage(){
 		return initialPercentage;
 	}
     public static int get_noOfDays(){return noOfDays;}
+    public static int get_minNoOfDays(){return minNoOfDays;}
 	public static int get_quesID(){
 		return quesID;
 	}
@@ -47,6 +66,27 @@ public class TradingController {
 	
 	
 	//all the setters
+	public void set_Username(String user){
+		this.username=user;
+	}
+	public void set_Password(String pass){
+		this.password=pass;
+	}
+	public void set_fileName(String file){
+		this.fileName=file;
+	}
+	public void set_nodeName(String node){
+		this.nodeName=node;
+	}
+	public void set_Policy(int poli){
+		this.policy=poli;
+	}
+	public void set_prevPerce(int prev){
+		this.previousPercentage=prev;
+	}
+	public void set_historyDates(String [] hist_dates){
+		this.history_dates=hist_dates;
+	}
 	public void set_increment(int incre){
 		this.increment=incre;
 	}
@@ -74,6 +114,9 @@ public class TradingController {
 	}
 	public void set_noOfDays(int noDays){
 		this.noOfDays=noDays;
+		}
+	public void set_minNoOfDays(int days){
+		this.minNoOfDays=days;
 		}
 public void set_default(int defaultVal){
 	this.default_Outcome=defaultVal;

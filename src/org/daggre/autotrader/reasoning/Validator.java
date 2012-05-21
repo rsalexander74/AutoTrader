@@ -7,7 +7,7 @@ public Validator(){}
 public boolean	withinTradeWindow(int noOfDays,int minNoDays){//checks whether its in the trading window
 	
 	    if(noOfDays<=minNoDays){
-		System.out.println("within trade window");
+		//System.out.println("within trade window");
 		return true;
 	    }
 	    else 
@@ -16,7 +16,7 @@ public boolean	withinTradeWindow(int noOfDays,int minNoDays){//checks whether it
 public boolean balanceCheck(double balance,double minBalance){// checks whether the points are sufficient to trade and trades only if more than 100
 
 	if(balance > minBalance){
-	System.out.println("sufficient points");
+	//System.out.println("sufficient points");
 	return true;	
 	}
 	else 
@@ -33,7 +33,7 @@ public boolean sufficientPoints(double maxPoints,double estimatedPoints){//check
 public boolean sufficientPercentage(int maxPercentage,int estimatedPercentage,int initialPercentage){
 
 int percentage;
-	System.out.println("sufficientPercentage logic");
+	//System.out.println("sufficientPercentage logic");
 	int defaultVal=TradingController.get_default();
 	if(defaultVal==0){
 		percentage=estimatedPercentage-initialPercentage;
@@ -93,7 +93,7 @@ public boolean sufficientPercentage(int estimatedPercentage){
 	int initialPercentage=TradingController.get_initialPercentage();
 	int defaultVal=TradingController.get_default();
 	
-	System.out.println("sufficientPercentage logic");
+	//System.out.println("sufficientPercentage logic");
 	if(defaultVal==1){
 		percentage=estimatedPercentage-initialPercentage;
 		if(percentage>maxPercentage)
@@ -110,6 +110,28 @@ public boolean sufficientPercentage(int estimatedPercentage){
 	}
 	else
 		return false;
+}
+	
+public int prevValue(){
+	int[] his=TradingController.get_ques_History();
+	String[] dates=TradingController.get_histDates();
+	int days=noOfDays(dates[0]);
+	int prev=0;
+	for(int i=1;i<dates.length;i++)
+	{
+		int temp=noOfDays(dates[i]);
+		if(temp<days){
+			
+			prev=his[i];
+			break;
+		}	
+	}
+	
+	return prev;
+	
+}	
+	
+	
 	
 	
 	
@@ -119,5 +141,5 @@ public boolean sufficientPercentage(int estimatedPercentage){
 }
 
 
-}
+
 

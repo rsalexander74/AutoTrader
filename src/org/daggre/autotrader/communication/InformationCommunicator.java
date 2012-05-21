@@ -13,6 +13,8 @@ import javax.ws.rs.core.NewCookie;
 
 import Json.communication.*;
 
+import org.daggre.autotrader.reasoning.*;
+
 public class InformationCommunicator implements InfoCommInterface{
 	static String strBaseUrl = "http://daggre.org";
 	static String strLoginSvcUrl = "/login/external_login";
@@ -53,9 +55,14 @@ public String getSettlementDate(int quesId,String username,String password){
 		     json=jsonArray.getJSONObject(i);
 		     int id=json.getInt("id");
 		     if(id==quesId){
-			       date=json.getString("settlement_at");
+			      try{ 
+			    	  date=json.getString("settlement_at");
 			       break;
-		                   }//if end
+			      } 
+			      catch(Exception e){
+			    	  break;
+			      }
+		     }//if end
 		           else
 			       continue;
 		
@@ -80,6 +87,7 @@ private static URI getBaseURI(String strUrl) {
 
 public int[] quesHistory(int quesId,String username,String password){
 	int[] history=null;
+	String[] history_dates=null;
 	double value;
 	ClientConfig config = new DefaultClientConfig();			
 	Client client = Client.create(config);						
@@ -103,6 +111,7 @@ public int[] quesHistory(int quesId,String username,String password){
 		JSONArray jsonArray=new JSONArray(response3);
 		int len=jsonArray.length();
 		history=new int[len];
+		history_dates=new String[len];
 		//System.out.println(response3);
 		JSONObject json=new JSONObject();
 		for(int i=0;i<jsonArray.length();i++){
@@ -110,6 +119,8 @@ public int[] quesHistory(int quesId,String username,String password){
 		value=(json.getDouble("new_value"))*100;
 		//System.out.println(value);
 		history[i]=(int)value;
+		
+		history_dates[i]=json.getString("created_at");
 		//System.out.println(history[i]);
 		}
 		}
@@ -117,7 +128,8 @@ public int[] quesHistory(int quesId,String username,String password){
 	catch (Exception e) {
 		System.out.println("Error in building and sending get requests: " + e);		
 	}
-
+TradingController tradcObj=new TradingController();
+tradcObj.set_historyDates(history_dates);
 return history;
 }
 @Override
@@ -293,6 +305,50 @@ public boolean quesCheck1(int quesID,String username,String password){
 	
 	return check;
 	
+	
+}
+public double getSettled_Value(int quesID,String username,String password){
+	
+	
+	double value;
+	//boolean check=false;
+	
+		ClientConfig config = new DefaultClientConfig();			
+		Client client = Client.create(config);						
+		WebResource webResource = client.resource(getBaseURI(strBaseUrl+strLoginSvcUrl));		
+			try {
+			MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
+			queryParams.add(paramUsername, username);
+			queryParams.add(paramPassword, password);
+			ClientResponse response = webResource.queryParams(queryParams).head();
+			List<NewCookie> cookieList = response.getCookies();
+			webResource = client.resource(getBaseURI(strBaseUrl+strUserInfoSvcUrl));
+			WebResource.Builder builder = webResource.getRequestBuilder();
+			for (NewCookie c : cookieList) {
+			    builder = builder.cookie(c);
+			    sessionCookie = c;	//also save cookie for future use
+			}
+			webResource = client.resource(strBaseUrl+strQuestion+quesID);
+			builder = webResource.getRequestBuilder();
+			builder.cookie(sessionCookie);
+			String response3 = builder.get(String.class);
+			JSONArray jsonArray=new JSONArray(response3);
+			
+			JSONObject json=new JSONObject();
+			
+			json=jsonArray.getJSONObject(1);
+			value=json.getDouble("settled_value");
+			
+			return value;
+			}
+			
+			
+		catch (Exception e) {
+				return 999.99;
+		}
+	
+	
+		
 	
 }
 

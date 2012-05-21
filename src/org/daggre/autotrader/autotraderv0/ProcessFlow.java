@@ -2,8 +2,26 @@ package org.daggre.autotrader.autotraderv0;
 import org.daggre.autotrader.communication.*;
 import org.daggre.autotrader.reasoning.*;
 public class ProcessFlow {
-static int[] quesId={ 157,155,148,176,171};
-static int[] defaultValue={0,0,0,0,0};
+static int[] quesId={109,
+	125,
+	129,
+	134,
+	141,
+	163,
+	174,
+	30,
+	32,
+	36};
+static int[] defaultValue={1,
+	0,
+	0,
+	0,
+	1,
+	0,
+	0,
+	0,
+	0,
+	0};
 static String username="autotraderK6";
 static String password="ralexan3";
 static int policy=0;
