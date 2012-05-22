@@ -69,6 +69,7 @@ public class Process3 {
 		
 		
 	}
+	//For autotrader logic one
 	
 	public void ProcessFlow(int quesId){
 		String username=TradingController.get_Username();
@@ -131,6 +132,8 @@ public class Process3 {
 			points=InfoObj.getPoints(username, password);
 			tradeWindow=valid.withinTradeWindow(days, TradingController.get_minNoOfDays());
 			//balanceCheck=valid.balanceCheck(points[1], minBalance);
+			
+			
 			quesValid=InfoObj.quesCheck1(quesId, username, password);
 			if(tradeWindow==true&&quesValid==true)
 				return true;
@@ -154,6 +157,7 @@ public class Process3 {
 				return percentage;
 						
 			}
+			// For BayyesNet.
 	
 			public void flow(int[] suppQues,String[] nodes){
 				
